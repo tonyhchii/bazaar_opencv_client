@@ -28,14 +28,6 @@ class WindowCapture:
                 self.w = self.bounds['Width']
                 self.h = self.bounds['Height']
 
-            border_pixels = 8
-            titlebar_pixels = 30
-
-            self.w = self.w - (border_pixels * 2)
-            self.h = self.h - titlebar_pixels - border_pixels
-            self.cropped_x = border_pixels
-            self.cropped_y = titlebar_pixels
-
     def _get_window_bounds(self, window_id):
         windows = Quartz.CGWindowListCopyWindowInfo(
             Quartz.kCGWindowListOptionAll, Quartz.kCGNullWindowID
@@ -48,9 +40,23 @@ class WindowCapture:
 
     def quartz_screenshot(self):
         # Capture the entire screen
-
+        self.bounds = self._get_window_bounds(self.window_id)
         if self.bounds is None:
             raise Exception("Cannot find window")
+
+        self.x = self.bounds['X']
+        self.y = self.bounds['Y']
+        self.w = self.bounds['Width']
+        self.h = self.bounds['Height']
+
+
+        border_pixels = 8
+        titlebar_pixels = 30
+
+        self.w = self.w - (border_pixels * 2)
+        self.h = self.h - titlebar_pixels - border_pixels
+        self.cropped_x = border_pixels
+        self.cropped_y = titlebar_pixels
         
         rect = Quartz.CGRectMake(self.x + self.cropped_x, self.y + self.cropped_y, self.w, self.h)
             

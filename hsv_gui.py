@@ -3,7 +3,7 @@ import numpy as np
 from hsvfilter import HsvFilter
 
 class HSV_Gui:
-    TRACKBAR_WINDOW = "Trackbars"
+    TRACKBAR_WINDOW = "HSV Trackbars"
 
     def init_control_gui(self):
         cv.namedWindow(self.TRACKBAR_WINDOW, cv.WINDOW_NORMAL)
